@@ -1,23 +1,17 @@
-class MyRunnable implements Runnable{
-    @Override
-    public void run() {
-        for (int i = 1; i <= 5; i++){
-            try{
-                Thread.sleep(1000);
-                System.out.println(i);
-            } catch (InterruptedException e){
-                System.out.println(e.getMessage());
-            }
-        }
-    }
-}
-
 public class Main {
     public static void main(String[] args) {
-        Thread thread = new Thread(new MyRunnable(), "name");
+        new Thread(()-> {
+            System.out.println("Runnable 실행 중");
 
-        thread.start();
+            for(int i = 1; i <= 5; i++) {
+                try {
+                    Thread.sleep(5000);
 
-        System.out.println(thread.getName());
+                    System.out.println(i);
+                } catch(InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }).start();
     }
 }
