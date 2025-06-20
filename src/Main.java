@@ -1,24 +1,27 @@
-import java.util.Arrays;
-import java.util.List;
+class MyThread extends Thread{
+    @Override
+    public void run(){
+        for(int i = 1; i <= 5; i++){
+            System.out.println("My Thread : " + i);
+
+            try {
+                Thread.sleep(1000);
+            } catch(InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+}
 
 public class Main {
     public static void main(String[] args) {
-        List<Double> values = Arrays.asList(10.0, 20.0, 30.0);
+        MyThread thread = new MyThread();
 
-        double result = values.stream()
-                .mapToDouble(Double::doubleValue)
-                .average()
-                .orElse(0.0); // 안전장치
+        // 스레드 생성 및 실행
+        thread.start();
 
-        System.out.println(result);
-
-        // for
-        double sum = 0.0;
-        for (Double v : values){
-            sum += v;
-        }
-        double avg = sum / values.toArray().length;
-
-        System.out.println(avg);
+        // run 메서드 호출
+        thread.run();
+        System.out.println("나를 막지마");
     }
 }
